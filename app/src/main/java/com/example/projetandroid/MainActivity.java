@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
     private TextView tmpmin;
     private TextView tmpmax;
+    private TextView temperature;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle("");
         tmpmin = (TextView) findViewById(R.id.tmpmin);
         tmpmax = (TextView) findViewById(R.id.tmpmax);
+        temperature = (TextView) findViewById(R.id.temperature);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -53,9 +57,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
+                        if (location != null){
                             new GetLocation().execute(location);
+                            new MeteoDuJour().execute(location);
+                            /*VillePays.GeoLocation vp = new VillePays().new GeoLocation();
+                            vp.execute(location);
+                            setTitle(VillePays.PAYS);*/
 
                         }
                     }
@@ -67,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Location... locations) {
 
-            String api_key = "google_api_key";
+            String api_key = "geocoding_api_key";
             String base_url =
                     "https://maps.googleapis.com/maps/api/geocode/json?language=fr&latlng=";
             base_url = base_url + Double.toString(locations[0].getLatitude()) + "," +
@@ -143,6 +150,72 @@ public class MainActivity extends AppCompatActivity {
             }
             location_string = ville + ", " + pays;
             setTitle(location_string);
+        }
+    }
+
+    private class MeteoDuJour extends AsyncTask<Location, Void, JSONObject> {
+
+        @Override
+        protected JSONObject doInBackground(Location... locations) {
+            String api_key = "";
+            String base_url = "http://api.openweathermap.org/data/2.5/weather?units=metric&lat=";
+            base_url = base_url + Double.toString(locations[0].getLatitude()) + "&lon=" +
+                    Double.toString(locations[0].getLongitude()) + "&appid=" + api_key;
+
+            URLConnection urlConn = null;
+            BufferedReader bufferedReader = null;
+            try
+            {
+                URL url = new URL(base_url);
+                urlConn = url.openConnection();
+                bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+
+                StringBuffer stringBuffer = new StringBuffer();
+                String line;
+                while ((line = bufferedReader.readLine()) != null)
+                {
+                    stringBuffer.append(line);
+                }
+
+                return new JSONObject(stringBuffer.toString());
+            }
+            catch(Exception ex)
+            {
+                Log.e("App", "yourDataTask", ex);
+                return null;
+            }
+            finally
+            {
+                if(bufferedReader != null)
+                {
+                    try {
+                        bufferedReader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+
+        @Override
+        protected void onPostExecute(JSONObject obj) {
+            try{
+                JSONObject mainObj = obj.getJSONObject("main");
+                tmpmax.setText(mainObj.getString("temp_max") + "\u00B0");
+                tmpmin.setText(mainObj.getString("temp_min") + "\u00B0");
+                temperature.setText(mainObj.getString("temp") + "\u2103");
+            }
+            catch (JSONException e1) {
+                e1.printStackTrace();
+
+            }
+
         }
     }
 }
