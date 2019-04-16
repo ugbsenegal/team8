@@ -1,3 +1,5 @@
+package com.example.projetandroid;
+
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -12,28 +14,17 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class VillePays {
-    private String ville;
-    private String pays;
+class VillePays{
+    public  static String VILLE ;
+    public  static String PAYS;
 
-    VillePays(){
-        ville = "";
-        pays = "";
-    }
-    public String getVille(){
-        return  ville;
-    }
-
-    public String getPays(){
-        return pays;
-    }
-
-    public  class GetLocation extends AsyncTask<Location, Void, JSONObject> {
+    public   class GeoLocation extends AsyncTask<Location, Void, JSONObject> {
 
         @Override
         protected JSONObject doInBackground(Location... locations) {
 
-            String api_key = "AIzaSyDacbQBrZFTSxlX7mpJ00AkrywG5YegSHM";
+
+            String api_key = "geocoding_api_key";
             String base_url =
                     "https://maps.googleapis.com/maps/api/geocode/json?language=fr&latlng=";
             base_url = base_url + Double.toString(locations[0].getLatitude()) + "," +
@@ -87,11 +78,11 @@ public class VillePays {
                 for (int i = 0; i < arr.length(); i++){
                     JSONArray tmp = arr.getJSONObject(i).getJSONArray("types");
                     if(tmp.getString(0).equals("country")){
-                        pays = arr.getJSONObject(i).getString("long_name");
+                        PAYS = arr.getJSONObject(i).getString("long_name");
                     }
 
                     if(tmp.getString(0).equals("administrative_area_level_1")){
-                        ville = arr.getJSONObject(i).getString("long_name");
+                        VILLE = arr.getJSONObject(i).getString("long_name");
                     }
 
                 }
@@ -103,3 +94,5 @@ public class VillePays {
         }
     }
 }
+
+
