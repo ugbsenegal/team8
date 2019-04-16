@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Location... locations) {
 
-            String api_key = "api_key";
+            String api_key = "google_api_key";
             String base_url =
                     "https://maps.googleapis.com/maps/api/geocode/json?language=fr&latlng=";
             base_url = base_url + Double.toString(locations[0].getLatitude()) + "," +
