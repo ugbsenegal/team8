@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/back2"
+    android:padding="20dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.5"
+        android:id="@+id/cl"
+        android:background="@drawable/rounded_border">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Samedi 13 Avril 2019"
+            android:id="@+id/date"
+            app:layout_constraintTop_toTopOf="@id/cl"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            android:textColor="#ffffff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.5"
+            android:text="19\u2103"
+            android:textSize="100sp"
+            android:id="@+id/temperature"
+            app:layout_constraintTop_toBottomOf="@id/date"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            android:textColor="#ffffff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Max : "
+            android:id="@+id/max"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintLeft_toLeftOf="@id/cl"
+            app:layout_constraintTop_toBottomOf="@id/temperature"
+            android:textColor="#ffffff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="27\u00B0"
+            android:id="@+id/tmpmax"
+            app:layout_constraintTop_toBottomOf="@id/temperature"
+            app:layout_constraintLeft_toRightOf="@id/max"
+            android:textColor="#ffffff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Min : "
+            android:id="@+id/min"
+            app:layout_constraintLeft_toRightOf="@id/tmpmax"
+            app:layout_constraintTop_toBottomOf="@id/temperature"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="27\u00B0"
+            android:id="@+id/tmpmin"
+            app:layout_constraintTop_toBottomOf="@id/temperature"
+            app:layout_constraintLeft_toRightOf="@id/min"
+            android:textColor="#ffffff"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="@id/cl"
+            app:layout_constraintTop_toBottomOf="@id/max"
+            android:id="@+id/details"
+            android:text="Plus details" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.2"
+            android:id="@+id/cl2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl"
+            android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lundi"
+            android:text="Lun"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toTopOf="@id/cl2"
+            android:background="@drawable/jour_border"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/padd_jour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mardi"
+            android:textColor="#ffffff"
+            android:text="Mar"
+            app:layout_constraintTop_toTopOf="@id/cl2"
+            app:layout_constraintLeft_toRightOf="@id/lundi"
+            android:background="@drawable/jour_border"/>
+        <TextView
+            android:layout_marginLeft="@dimen/padd_jour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mercredi"
+            android:text="Mer"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toTopOf="@id/cl2"
+            app:layout_constraintLeft_toRightOf="@id/mardi"
+            android:background="@drawable/jour_border"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/padd_jour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/jeudi"
+            android:text="Jeu"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toTopOf="@id/cl2"
+            app:layout_constraintLeft_toRightOf="@id/mercredi"
+            android:background="@drawable/jour_border"/>
+        <TextView
+            android:layout_marginLeft="@dimen/padd_jour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/vendredi"
+            android:text="Ven"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toTopOf="@id/cl2"
+            app:layout_constraintLeft_toRightOf="@id/jeudi"
+            android:background="@drawable/jour_border"/>
+
+        <TextView
+            android:layout_marginLeft="@dimen/padd_jour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/samedi"
+            android:text="Sam"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toTopOf="@id/cl2"
+            app:layout_constraintLeft_toRightOf="@id/vendredi"
+            android:background="@drawable/jour_border"/>
+        <TextView
+            android:layout_marginLeft="@dimen/padd_jour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dimanche"
+            android:text="Dim"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toTopOf="@id/cl2"
+            app:layout_constraintLeft_toRightOf="@id/samedi"
+            android:background="@drawable/jour_border"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tmplundi"
+            android:text="28\u00B0"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toBottomOf="@id/lundi"
+            app:layout_constraintLeft_toLeftOf="@id/lundi"
+            app:layout_constraintRight_toRightOf="@id/lundi"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tmpmardi"
+            android:text="28\u00B0"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toBottomOf="@id/mardi"
+            app:layout_constraintLeft_toLeftOf="@id/mardi"
+            app:layout_constraintRight_toRightOf="@id/mardi"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tmpmercredi"
+            android:text="28\u00B0"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toBottomOf="@id/mercredi"
+            app:layout_constraintLeft_toLeftOf="@id/mercredi"
+            app:layout_constraintRight_toRightOf="@id/mercredi"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tmpjeudi"
+            android:text="28\u00B0"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toBottomOf="@id/jeudi"
+            app:layout_constraintLeft_toLeftOf="@id/jeudi"
+            app:layout_constraintRight_toRightOf="@id/jeudi"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tmpvendredi"
+            android:text="28\u00B0"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toBottomOf="@id/vendredi"
+            app:layout_constraintLeft_toLeftOf="@id/vendredi"
+            app:layout_constraintRight_toRightOf="@id/vendredi"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tmpsamedi"
+            android:text="28\u00B0"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toBottomOf="@id/samedi"
+            app:layout_constraintLeft_toLeftOf="@id/samedi"
+            app:layout_constraintRight_toRightOf="@id/samedi"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tmpdimanche"
+            android:text="28\u00B0"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toBottomOf="@id/dimanche"
+            app:layout_constraintLeft_toLeftOf="@id/dimanche"
+            app:layout_constraintRight_toRightOf="@id/dimanche"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Heures de priere"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Meteo</string>
+    <string name="temperature">Temperature  :  </string>
+    <string name="levee">Heure lever soleil  :  </string>
+    <string name="coucher">Coucher du soleil :</string>
+    <string name="prieres">Heures de priere  :</string>
+    <string name="aff_prieres">Heures de priere</string>
+</resources>
