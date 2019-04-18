@@ -26,6 +26,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("");
         tmpmin = (TextView) findViewById(R.id.tmpmin);
         tmpmax = (TextView) findViewById(R.id.tmpmax);
         temperature = (TextView) findViewById(R.id.temperature);
@@ -60,10 +61,6 @@ public class MainActivity extends AppCompatActivity {
                         if (location != null){
                             new GetLocation().execute(location);
                             new MeteoDuJour().execute(location);
-                            /*VillePays.GeoLocation vp = new VillePays().new GeoLocation();
-                            vp.execute(location);
-                            setTitle(VillePays.PAYS);*/
-
                         }
                     }
                 });
@@ -74,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Location... locations) {
 
-            String api_key = "geocoding_api_key";
+            String api_key = "AIzaSyB_3yekQeEAm1P4lgvovt_iBordFuBr_qk";
             String base_url =
                     "https://maps.googleapis.com/maps/api/geocode/json?language=fr&latlng=";
             base_url = base_url + Double.toString(locations[0].getLatitude()) + "," +
@@ -143,13 +140,15 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 }
-                Log.d("test", "formattted address:" + location_string);
+                location_string = ville + ", " + pays;
+                setTitle(location_string);
+
+                Log.i("ville", ville);
+                Log.i("pays", pays);
             } catch (JSONException e1) {
                 e1.printStackTrace();
-
             }
-            location_string = ville + ", " + pays;
-            setTitle(location_string);
+
         }
     }
 
@@ -157,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(Location... locations) {
-            String api_key = "";
+            String api_key = "236ce1ea6c02a37a1aafff92045314e6";
             String base_url = "http://api.openweathermap.org/data/2.5/weather?units=metric&lat=";
             base_url = base_url + Double.toString(locations[0].getLatitude()) + "&lon=" +
                     Double.toString(locations[0].getLongitude()) + "&appid=" + api_key;
@@ -210,6 +209,133 @@ public class MainActivity extends AppCompatActivity {
                 tmpmax.setText(mainObj.getString("temp_max") + "\u00B0");
                 tmpmin.setText(mainObj.getString("temp_min") + "\u00B0");
                 temperature.setText(mainObj.getString("temp") + "\u2103");
+            }
+            catch (JSONException e1) {
+                e1.printStackTrace();
+
+            }
+
+        }
+    }
+
+
+
+    private class MeteoDeLaSemaine extends AsyncTask<Location, Void, JSONObject> {
+        public String theDay(int day){
+            String[] dayNames = {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
+    	    return dayNames[day];
+        }
+        public float min(float tab[]){
+            float val = tab[0];
+            for(int i = 1; i < tab.length; i++)
+                if(tab[i] < val)
+                    val = tab[i];
+            return  val;
+        }
+
+        public float max(float tab[]){
+            float val = tab[0];
+            for(int i = 1; i < tab.length; i++)
+                if(tab[i] > val)
+                    val = tab[i];
+            return val;
+        }
+
+        public int jourDuMois(){
+            Calendar calendar = Calendar.getInstance();
+            return calendar.get(Calendar.DATE);
+        }
+
+        int getDayWeek(String date){
+            Calendar calendar = Calendar.getInstance();
+            return calendar.get(Calendar.DAY_OF_WEEK)
+        }
+
+        int getDayFromDate(String date){
+            SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar c = Calendar.getInstance();
+            c.setTime(form);
+            return c.get(Calendar.DAY_OF_MONTH);
+        }
+        @Override
+        protected JSONObject doInBackground(Location... locations) {
+            String api_key = "";
+            String base_url = "api.openweathermap.org/data/2.5/forecast?units=metric&lat=";
+            base_url = base_url + Double.toString(locations[0].getLatitude()) + "&lon=" +
+                    Double.toString(locations[0].getLongitude()) + "&appid=" + api_key;
+
+            URLConnection urlConn = null;
+            BufferedReader bufferedReader = null;
+            try
+            {
+                URL url = new URL(base_url);
+                urlConn = url.openConnection();
+                bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+
+                StringBuffer stringBuffer = new StringBuffer();
+                String line;
+                while ((line = bufferedReader.readLine()) != null)
+                {
+                    stringBuffer.append(line);
+                }
+
+                return new JSONObject(stringBuffer.toString());
+            }
+            catch(Exception ex)
+            {
+                Log.e("App", "yourDataTask", ex);
+                return null;
+            }
+            finally
+            {
+                if(bufferedReader != null)
+                {
+                    try {
+                        bufferedReader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+
+        @Override
+        protected void onPostExecute(JSONObject obj) {
+            Float[] tabMin = new Float[8];
+            Float[] tabMax = new Float[8];
+            float min;
+            float max;
+            int jourActuel = jourDuMois();
+            int n = 0;
+            int k = 0;
+
+            try{
+                JSONArray liste = obj.getJSONArray("list");
+                String date;
+                for (int i = 0; i < liste.length(); i++){
+                    date = liste.getJSONObject(i).getString("dt_txt");
+                    int jour = getDayFromDate(date);
+                    if(jourActuel == jour)
+                        continue;
+                    n = 0;
+                    tabMin[n] = Float.parseFloat(liste.getJSONObject(i).getJSONObject("main").getString("min"));
+                    tabMax[n] = Float.parseFloat(liste.getJSONObject(i).getJSONObject("main").getString("max"));
+                    n++;
+                    if(n == 8){
+                        /*days[k].setText(theDay(getDayWeek(date) - 1));
+                        days[k].setText(tabMin[k]);
+                        days[k].setText(tabMin[k]);*/
+                        n = 0;
+                        k++;
+                    }
+
+                }
             }
             catch (JSONException e1) {
                 e1.printStackTrace();
