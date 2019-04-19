@@ -85,158 +85,195 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.2"
-            android:id="@+id/cl2"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl"
-            android:layout_marginTop="40dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lundi"
+        app:layout_constraintTop_toBottomOf="@id/cl"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="@color/colorText"
+        android:id="@+id/jour1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="--°C"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/maxjour1"
+        app:layout_constraintTop_toBottomOf="@id/cl"
+        android:textColor="@color/colorText"
+        android:id="@+id/minjour1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl"
+        android:text="--°C"
+        android:id="@+id/maxjour1"
+        android:textColor="@color/colorText"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mardi"
+        app:layout_constraintTop_toBottomOf="@id/jour1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="@color/colorText"
+        android:id="@+id/jour2"
+        android:layout_marginTop="@dimen/margin_bottom"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lundi"
-            android:text="Lun"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toTopOf="@id/cl2"
-            android:background="@drawable/jour_border"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="--°C"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/minjour1"
+        android:textColor="@color/colorText"
+        android:id="@+id/minjour2"
+        android:layout_marginTop="@dimen/margin_bottom"/>
 
-        <TextView
-            android:layout_marginLeft="@dimen/padd_jour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/mardi"
-            android:textColor="#ffffff"
-            android:text="Mar"
-            app:layout_constraintTop_toTopOf="@id/cl2"
-            app:layout_constraintLeft_toRightOf="@id/lundi"
-            android:background="@drawable/jour_border"/>
-        <TextView
-            android:layout_marginLeft="@dimen/padd_jour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/mercredi"
-            android:text="Mer"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toTopOf="@id/cl2"
-            app:layout_constraintLeft_toRightOf="@id/mardi"
-            android:background="@drawable/jour_border"/>
+      <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         app:layout_constraintRight_toRightOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/maxjour1"
+         android:text="--°C"
+         android:id="@+id/maxjour2"
+         android:textColor="@color/colorText"
+         android:layout_marginTop="@dimen/margin_bottom"/>
 
-        <TextView
-            android:layout_marginLeft="@dimen/padd_jour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/jeudi"
-            android:text="Jeu"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toTopOf="@id/cl2"
-            app:layout_constraintLeft_toRightOf="@id/mercredi"
-            android:background="@drawable/jour_border"/>
-        <TextView
-            android:layout_marginLeft="@dimen/padd_jour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/vendredi"
-            android:text="Ven"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toTopOf="@id/cl2"
-            app:layout_constraintLeft_toRightOf="@id/jeudi"
-            android:background="@drawable/jour_border"/>
+    <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="Mercredi"
+     app:layout_constraintTop_toBottomOf="@id/jour2"
+     app:layout_constraintLeft_toLeftOf="parent"
+     android:textColor="@color/colorText"
+     android:id="@+id/jour3"
+     android:layout_marginTop="@dimen/margin_bottom"/>
 
-        <TextView
-            android:layout_marginLeft="@dimen/padd_jour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/samedi"
-            android:text="Sam"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toTopOf="@id/cl2"
-            app:layout_constraintLeft_toRightOf="@id/vendredi"
-            android:background="@drawable/jour_border"/>
-        <TextView
-            android:layout_marginLeft="@dimen/padd_jour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/dimanche"
-            android:text="Dim"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toTopOf="@id/cl2"
-            app:layout_constraintLeft_toRightOf="@id/samedi"
-            android:background="@drawable/jour_border"/>
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="--°C"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/minjour2"
+    android:textColor="@color/colorText"
+    android:id="@+id/minjour3"
+    android:layout_marginTop="@dimen/margin_bottom"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tmplundi"
-            android:text="--\u00B0"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toBottomOf="@id/lundi"
-            app:layout_constraintLeft_toLeftOf="@id/lundi"
-            app:layout_constraintRight_toRightOf="@id/lundi"/>
+    <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/maxjour2"
+       android:text="--°C"
+       android:id="@+id/maxjour3"
+       android:textColor="@color/colorText"
+       android:layout_marginTop="@dimen/margin_bottom"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tmpmardi"
-            android:text="--\u00B0"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toBottomOf="@id/mardi"
-            app:layout_constraintLeft_toLeftOf="@id/mardi"
-            app:layout_constraintRight_toRightOf="@id/mardi"/>
+    <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="Jeudi"
+     app:layout_constraintTop_toBottomOf="@id/jour3"
+     app:layout_constraintLeft_toLeftOf="parent"
+     android:textColor="@color/colorText"
+     android:id="@+id/jour4"
+     android:layout_marginTop="@dimen/margin_bottom"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tmpmercredi"
-            android:text="--\u00B0"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toBottomOf="@id/mercredi"
-            app:layout_constraintLeft_toLeftOf="@id/mercredi"
-            app:layout_constraintRight_toRightOf="@id/mercredi"/>
+     <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="--°C"
+     app:layout_constraintLeft_toLeftOf="parent"
+     app:layout_constraintRight_toRightOf="parent"
+     app:layout_constraintTop_toBottomOf="@id/minjour3"
+     android:textColor="@color/colorText"
+     android:id="@+id/minjour4"
+     android:layout_marginTop="@dimen/margin_bottom"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tmpjeudi"
-            android:text="--\u00B0"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toBottomOf="@id/jeudi"
-            app:layout_constraintLeft_toLeftOf="@id/jeudi"
-            app:layout_constraintRight_toRightOf="@id/jeudi"/>
+    <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/maxjour3"
+       android:text="--°C"
+       android:id="@+id/maxjour4"
+       android:textColor="@color/colorText"
+       android:layout_marginTop="@dimen/margin_bottom"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tmpvendredi"
-            android:text="--\u00B0"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toBottomOf="@id/vendredi"
-            app:layout_constraintLeft_toLeftOf="@id/vendredi"
-            app:layout_constraintRight_toRightOf="@id/vendredi"/>
+    <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="Vendredi"
+     app:layout_constraintTop_toBottomOf="@id/jour4"
+     app:layout_constraintLeft_toLeftOf="parent"
+     android:textColor="@color/colorText"
+     android:id="@+id/jour5"
+     android:layout_marginTop="@dimen/margin_bottom"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tmpsamedi"
-            android:text="--\u00B0"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toBottomOf="@id/samedi"
-            app:layout_constraintLeft_toLeftOf="@id/samedi"
-            app:layout_constraintRight_toRightOf="@id/samedi"/>
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="--°C"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/minjour4"
+    android:textColor="@color/colorText"
+    android:id="@+id/minjour5"
+    android:layout_marginTop="@dimen/margin_bottom"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tmpdimanche"
-            android:text="--\u00B0"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toBottomOf="@id/dimanche"
-            app:layout_constraintLeft_toLeftOf="@id/dimanche"
-            app:layout_constraintRight_toRightOf="@id/dimanche"/>
-    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/maxjour4"
+       android:text="--°C"
+       android:id="@+id/maxjour5"
+       android:textColor="@color/colorText"
+       android:layout_marginTop="@dimen/margin_bottom"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <Button
         android:layout_width="match_parent"
