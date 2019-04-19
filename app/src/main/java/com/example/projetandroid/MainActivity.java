@@ -56,6 +56,19 @@ public class MainActivity extends AppCompatActivity {
         tvjours[2] = (TextView) findViewById(R.id.jour3);
         tvjours[3] = (TextView) findViewById(R.id.jour4);
         tvjours[4] = (TextView) findViewById(R.id.jour5);
+
+        tvmin[0] = (TextView) findViewById(R.id.minjour1);
+        tvmin[1] = (TextView) findViewById(R.id.minjour2);
+        tvmin[2] = (TextView) findViewById(R.id.minjour3);
+        tvmin[3] = (TextView) findViewById(R.id.minjour4);
+        tvmin[4] = (TextView) findViewById(R.id.minjour5);
+
+        tvmax = new TextView[5];
+        tvmax[0] = (TextView) findViewById(R.id.maxjour1);
+        tvmax[1] = (TextView) findViewById(R.id.maxjour2);
+        tvmax[2] = (TextView) findViewById(R.id.maxjour3);
+        tvmax[3] = (TextView) findViewById(R.id.maxjour4);
+        tvmax[4] = (TextView) findViewById(R.id.maxjour5);
         tmpmin = (TextView) findViewById(R.id.tmpmin);
         tmpmax = (TextView) findViewById(R.id.tmpmax);
         temperature = (TextView) findViewById(R.id.temperature);
@@ -78,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                         if (location != null){
                             new GetLocation().execute(location);
                             new MeteoDuJour().execute(location);
+                            new MeteoDeLaSemaine().execute(location);
                         }
                     }
                 });
@@ -88,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected JSONObject doInBackground(Location... locations) {
 
-            String api_key = "";
+            String api_key = "AIzaSyB_3yekQeEAm1P4lgvovt_iBordFuBr_qk";
             String base_url =
                     "https://maps.googleapis.com/maps/api/geocode/json?language=fr&latlng=";
             base_url = base_url + Double.toString(locations[0].getLatitude()) + "," +
@@ -242,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
             String[] dayNames = {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
     	    return dayNames[day];
         }
-        public float min(float tab[]){
+        public float min(float[] tab){
             float val = tab[0];
             for(int i = 1; i < tab.length; i++)
                 if(tab[i] < val)
@@ -250,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
             return  val;
         }
 
-        public float max(float tab[]){
+        public float max(float[] tab){
             float val = tab[0];
             for(int i = 1; i < tab.length; i++)
                 if(tab[i] > val)
@@ -264,8 +278,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         int getDayWeek(String date){
-            Calendar calendar = Calendar.getInstance();
-            return calendar.get(Calendar.DAY_OF_WEEK);
+            SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = null;
+            try {
+                d = form.parse(date);
+            }catch (ParseException e){
+                e.printStackTrace();
+
+            }
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(d);
+            return c.get(Calendar.DAY_OF_WEEK);
         }
 
         int getDayFromDate(String date) throws ParseException {
@@ -284,8 +308,8 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         protected JSONObject doInBackground(Location... locations) {
-            String api_key = "";
-            String base_url = "api.openweathermap.org/data/2.5/forecast?units=metric&lat=";
+            String api_key = "236ce1ea6c02a37a1aafff92045314e6";
+            String base_url = "http://api.openweathermap.org/data/2.5/forecast?mode=json&units=metric&lat=";
             base_url = base_url + Double.toString(locations[0].getLatitude()) + "&lon=" +
                     Double.toString(locations[0].getLongitude()) + "&appid=" + api_key;
 
@@ -332,17 +356,15 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(JSONObject obj) {
-            Float[] tabMin = new Float[8];
-            Float[] tabMax = new Float[8];
-            float min;
-            float max;
+            float[] tabMin = new float[8];
+            float[] tabMax = new float[8];
             int jourActuel = jourDuMois();
             int n = 0;
             int k = 0;
 
             try{
                 JSONArray liste = obj.getJSONArray("list");
-                String date;
+                String date="";
                 int jour = 0;
                 for (int i = 0; i < liste.length(); i++){
                     date = liste.getJSONObject(i).getString("dt_txt");
@@ -354,17 +376,16 @@ public class MainActivity extends AppCompatActivity {
 
                     if(jourActuel == jour)
                         continue;
-                    n = 0;
-                    tabMin[n] = Float.parseFloat(liste.getJSONObject(i).getJSONObject("main").getString("min"));
-                    tabMax[n] = Float.parseFloat(liste.getJSONObject(i).getJSONObject("main").getString("max"));
-                    n++;
-                    if(n == 8){
-                        /*days[k].setText(theDay(getDayWeek(date) - 1));
-                        days[k].setText(tabMin[k]);
-                        days[k].setText(tabMin[k]);*/
+                    tabMin[n] = Float.parseFloat(liste.getJSONObject(i).getJSONObject("main").getString("temp_min"));
+                    tabMax[n] = Float.parseFloat(liste.getJSONObject(i).getJSONObject("main").getString("temp_max"));
+                    if(n == 7){
+                        tvjours[k].setText(theDay(getDayWeek(date) - 1));
+                        tvmin[k].setText(Float.toString(min(tabMin)));
+                        tvmax[k].setText(Float.toString(max(tabMax)));
                         n = 0;
                         k++;
                     }
+                    n++;
 
                 }
             }
