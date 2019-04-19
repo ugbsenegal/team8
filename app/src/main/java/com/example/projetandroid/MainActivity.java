@@ -26,8 +26,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.zip.DataFormatException;
 
 public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
@@ -248,13 +251,21 @@ public class MainActivity extends AppCompatActivity {
 
         int getDayWeek(String date){
             Calendar calendar = Calendar.getInstance();
-            return calendar.get(Calendar.DAY_OF_WEEK)
+            return calendar.get(Calendar.DAY_OF_WEEK);
         }
 
-        int getDayFromDate(String date){
+        int getDayFromDate(String date) throws ParseException {
             SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = null;
+            try {
+                 d = form.parse(date);
+            }catch (ParseException e){
+                e.printStackTrace();
+
+            }
+
             Calendar c = Calendar.getInstance();
-            c.setTime(form);
+            c.setTime(d);
             return c.get(Calendar.DAY_OF_MONTH);
         }
         @Override
@@ -318,9 +329,15 @@ public class MainActivity extends AppCompatActivity {
             try{
                 JSONArray liste = obj.getJSONArray("list");
                 String date;
+                int jour = 0;
                 for (int i = 0; i < liste.length(); i++){
                     date = liste.getJSONObject(i).getString("dt_txt");
-                    int jour = getDayFromDate(date);
+                    try {
+                        jour = getDayFromDate(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                     if(jourActuel == jour)
                         continue;
                     n = 0;
