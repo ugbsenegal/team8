@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:text="--°C"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@id/maxjour1"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl"
         android:textColor="@color/colorText"
         android:id="@+id/minjour1"/>
@@ -235,45 +235,6 @@
        android:id="@+id/maxjour5"
        android:textColor="@color/colorText"
        android:layout_marginTop="@dimen/margin_bottom"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <Button
         android:layout_width="match_parent"
