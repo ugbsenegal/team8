@@ -2,4 +2,5 @@
 <resources>
     <dimen name="padd_jour">20dp</dimen>
     <dimen name="margin_bottom">20dp</dimen>
+    <dimen name="margin">10dp</dimen>
 </resources>
