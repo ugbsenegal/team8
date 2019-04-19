@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,10 +39,23 @@ public class MainActivity extends AppCompatActivity {
     private TextView tmpmax;
     private TextView temperature;
 
+    private  TextView[] tvjours;
+    private  TextView[] tvmin;
+    private  TextView[] tvmax;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tvjours = new TextView[5];
+        tvmin = new TextView[5];
+        tvmax = new TextView[5];
+
+        tvjours[0] = (TextView) findViewById(R.id.jour1);
+        tvjours[1] = (TextView) findViewById(R.id.jour2);
+        tvjours[2] = (TextView) findViewById(R.id.jour3);
+        tvjours[3] = (TextView) findViewById(R.id.jour4);
+        tvjours[4] = (TextView) findViewById(R.id.jour5);
         tmpmin = (TextView) findViewById(R.id.tmpmin);
         tmpmax = (TextView) findViewById(R.id.tmpmax);
         temperature = (TextView) findViewById(R.id.temperature);
