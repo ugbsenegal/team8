@@ -1,6 +1,8 @@
 package com.example.projetandroid;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -9,6 +11,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private  TextView[] tvjours;
     private  TextView[] tvmin;
     private  TextView[] tvmax;
+    private Button bdetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,18 @@ public class MainActivity extends AppCompatActivity {
         tmpmin = (TextView) findViewById(R.id.tmpmin);
         tmpmax = (TextView) findViewById(R.id.tmpmax);
         temperature = (TextView) findViewById(R.id.temperature);
+
+        bdetails = (Button)findViewById(R.id.details);
+
+
+        bdetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, Details.class);
+                startActivity(i);
+            }
+        });
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -84,14 +101,17 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                .addOnSuccessListener(MainActivity.this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null){
+                            ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                                    "Loading. Please wait...", true);
                             new GetLocation().execute(location);
                             new MeteoDuJour().execute(location);
                             new MeteoDeLaSemaine().execute(location);
+                            dialog.dismiss();
                         }
                     }
                 });
@@ -183,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class MeteoDuJour extends AsyncTask<Location, Void, JSONObject> {
+    class MeteoDuJour extends AsyncTask<Location, Void, JSONObject> {
 
         @Override
         protected JSONObject doInBackground(Location... locations) {
@@ -380,8 +400,8 @@ public class MainActivity extends AppCompatActivity {
                     tabMax[n] = Float.parseFloat(liste.getJSONObject(i).getJSONObject("main").getString("temp_max"));
                     if(n == 7){
                         tvjours[k].setText(theDay(getDayWeek(date) - 1));
-                        tvmin[k].setText(Float.toString(min(tabMin)));
-                        tvmax[k].setText(Float.toString(max(tabMax)));
+                        tvmin[k].setText(Float.toString(min(tabMin))  + "\u00B0");
+                        tvmax[k].setText(Float.toString(max(tabMax))  + "\u00B0");
                         n = 0;
                         k++;
                     }
