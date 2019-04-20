@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView[] tvmax;
     private Button bdetails;
 
+    private Button bprieres;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +88,20 @@ public class MainActivity extends AppCompatActivity {
 
         bdetails = (Button) findViewById(R.id.details);
 
+        bprieres = (Button) findViewById(R.id.prieres);
 
         bdetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, Details.class);
+                startActivity(i);
+            }
+        });
+
+        bprieres.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, HeuresPrieres.class);
                 startActivity(i);
             }
         });

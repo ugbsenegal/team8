@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HeuresPrieres">
+    tools:context=".HeuresPrieres"
+    android:background="@drawable/back2"
+    android:padding="20dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Samedi 13 Avril 2019"
         android:id="@+id/date"
-        app:layout_constraintTop_toTopOf="@id/cl"
-        app:layout_constraintRight_toRightOf="@id/cl"
-        app:layout_constraintLeft_toLeftOf="@id/cl"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:textColor="#ffffff"/>
 
 
@@ -22,15 +24,16 @@
         android:text="Fadjar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/date"
-        android:layout_marginTop="@dimen/margin_bottom"
-        android:id="@+id/tvFadjar"
-        />
+        android:layout_marginTop="@dimen/margin"
+        android:id="@+id/tvFadjar" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/date"
-        android:text="6h"/>
+        android:text="--H--"
+        android:id="@+id/fadjr"
+        android:layout_marginTop="@dimen/margin"/>
     <View
         android:background="#FF0000"
         android:layout_height="2dp"
@@ -43,10 +46,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tisbar"
+        android:text="Dhur"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v1"
-        android:layout_marginTop="@dimen/margin_bottom"
+        android:layout_marginTop="@dimen/margin"
         android:id="@+id/tvTisbar"
         />
     <TextView
@@ -54,7 +57,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v1"
-        android:text="14h15"/>
+        android:text="--H--"
+        android:id="@+id/dhur"
+        android:layout_marginTop="@dimen/margin"/>
     <View
         android:background="#FF0000"
         android:layout_height="2dp"
@@ -67,10 +72,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Takkussan"
+        android:text="Asr"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v2"
-        android:layout_marginTop="@dimen/margin_bottom"
+        android:layout_marginTop="@dimen/margin"
         android:id="@+id/tvTakkussan"
         />
     <TextView
@@ -78,7 +83,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v2"
-        android:text="17h15"/>
+        android:text="--H--"
+        android:id="@+id/asr"
+        android:layout_marginTop="@dimen/margin"/>
     <View
         android:background="#FF0000"
         android:layout_height="2dp"
@@ -91,10 +98,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Timis"
+        android:text="Maghrib"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v3"
-        android:layout_marginTop="@dimen/margin_bottom"
+        android:layout_marginTop="@dimen/margin"
         android:id="@+id/tvTimis"
         />
     <TextView
@@ -102,7 +109,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v3"
-        android:text="19h15"/>
+        android:text="--H--"
+        android:id="@+id/maghrib"
+        android:layout_marginTop="@dimen/margin"/>
     <View
         android:background="#FF0000"
         android:layout_height="2dp"
@@ -116,10 +125,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guewee"
+        android:text="Isha"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v4"
-        android:layout_marginTop="@dimen/margin_bottom"
+        android:layout_marginTop="@dimen/margin"
         android:id="@+id/tvGuewee"
         />
     <TextView
@@ -127,7 +136,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v4"
-        android:text="20h05"/>
+        android:text="--H--"
+        android:id="@+id/isha"
+        android:layout_marginTop="@dimen/margin"/>
 
 
 </android.support.constraint.ConstraintLayout>
