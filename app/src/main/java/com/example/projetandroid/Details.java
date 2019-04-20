@@ -1,13 +1,17 @@
 package com.example.projetandroid;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -24,13 +28,27 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class Details extends AppCompatActivity {
 
     private TextView tmpmin;
     private TextView tmpmax;
     private TextView temperature;
-
+    private TextView tvlat;
+    private TextView tvlon;
+    private TextView tvLS;
+    private TextView tvCS;
+    private  TextView tvvent;
+    private TextView tvhum;
     private FusedLocationProviderClient fusedLocationClient;
 
     @Override
@@ -40,6 +58,12 @@ public class Details extends AppCompatActivity {
         tmpmin = (TextView) findViewById(R.id.tmpmin);
         tmpmax = (TextView) findViewById(R.id.tmpmax);
         temperature = (TextView) findViewById(R.id.temperature);
+        tvlat = (TextView) findViewById(R.id.valLat);
+        tvlon = (TextView) findViewById(R.id.valLon);
+        tvLS = (TextView) findViewById(R.id.valLS);
+        tvCS = (TextView) findViewById(R.id.valCS);
+        tvvent = (TextView) findViewById(R.id.valVent);
+        tvhum = (TextView) findViewById(R.id.valHum);
 
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -154,6 +178,23 @@ public class Details extends AppCompatActivity {
 
     private class MeteoDuJour extends AsyncTask<Location, Void, JSONObject> {
 
+        //@TargetApi(Build.VERSION_CODES.O)
+        //@RequiresApi(api = Build.VERSION_CODES.O)
+        public  Date secToLocalDateTime(long sec) throws ParseException {
+            Date date = new Date(sec*1000L);
+            // format of the date
+            SimpleDateFormat jdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            jdf.setTimeZone(TimeZone.getTimeZone(String.valueOf(TimeZone.getDefault())));
+            String java_date = jdf.format(date);
+            Date val_date=null;
+            try{
+                val_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(java_date);
+            }catch (ParseException e){
+                e.printStackTrace();
+            }
+            return  val_date;
+        }
+
         @Override
         protected JSONObject doInBackground(Location... locations) {
             String api_key = "236ce1ea6c02a37a1aafff92045314e6";
@@ -202,6 +243,7 @@ public class Details extends AppCompatActivity {
         }
 
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected void onPostExecute(JSONObject obj) {
             try{
@@ -209,10 +251,26 @@ public class Details extends AppCompatActivity {
                 tmpmax.setText(mainObj.getString("temp_max") + "\u00B0");
                 tmpmin.setText(mainObj.getString("temp_min") + "\u00B0");
                 temperature.setText(mainObj.getString("temp") + "\u2103");
+
+                JSONObject coord = obj.getJSONObject("coord");
+                tvlat.setText(coord.getString("lat"));
+                tvlon.setText(coord.getString("lon"));
+
+                tvhum.setText(mainObj.getString("humidity") + "%");
+                tvvent.setText(obj.getJSONObject("wind").getString("speed") + "m/s");
+
+                JSONObject sys = obj.getJSONObject("sys");
+                Date d1 = secToLocalDateTime(sys.getLong("sunrise"));
+                Date d2 = secToLocalDateTime(sys.getLong("sunset"));
+                tvLS.setText(Long.toString(d1.getHours()) + "H" + Long.toString(d1.getMinutes()));
+                tvCS.setText(Long.toString(d2.getHours()) + "H" + Long.toString(d2.getMinutes()));
+
             }
             catch (JSONException e1) {
                 e1.printStackTrace();
 
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
 
         }
