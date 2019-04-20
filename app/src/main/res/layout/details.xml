@@ -8,7 +8,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintHeight_percent="0.35"
         android:id="@+id/cl"
         android:background="@drawable/rounded_border">
 
@@ -20,19 +20,22 @@
             app:layout_constraintTop_toTopOf="@id/cl"
             app:layout_constraintRight_toRightOf="@id/cl"
             app:layout_constraintLeft_toLeftOf="@id/cl"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:layout_marginTop="@dimen/margin"/>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.5"
             android:text="--\u2103"
-            android:textSize="100sp"
+            android:textSize="60sp"
             android:id="@+id/temperature"
             app:layout_constraintTop_toBottomOf="@id/date"
             app:layout_constraintRight_toRightOf="@id/cl"
             app:layout_constraintLeft_toLeftOf="@id/cl"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:layout_marginTop="@dimen/margin"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +45,8 @@
             app:layout_constraintRight_toRightOf="@id/cl"
             app:layout_constraintLeft_toLeftOf="@id/cl"
             app:layout_constraintTop_toBottomOf="@id/temperature"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:layout_marginTop="@dimen/margin"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,7 +55,8 @@
             android:id="@+id/tmpmax"
             app:layout_constraintTop_toBottomOf="@id/temperature"
             app:layout_constraintLeft_toRightOf="@id/max"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:layout_marginTop="@dimen/margin"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,7 +66,8 @@
             app:layout_constraintLeft_toRightOf="@id/tmpmax"
             app:layout_constraintTop_toBottomOf="@id/temperature"
             android:textColor="#ffffff"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/margin"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,7 +76,8 @@
             android:id="@+id/tmpmin"
             app:layout_constraintTop_toBottomOf="@id/temperature"
             app:layout_constraintLeft_toRightOf="@id/min"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:layout_marginTop="@dimen/margin"/>
 
     </android.support.constraint.ConstraintLayout>
 
@@ -83,7 +90,8 @@
         app:layout_constraintTop_toBottomOf="@id/cl"
         android:text="Humidité"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -94,7 +102,15 @@
         android:textSize="20sp"
         android:text="58%"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
+    <View
+        android:background="#FF0000"
+        android:layout_height="2dp"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/valHum"
+        android:layout_marginTop="@dimen/margin"
+        android:id="@+id/v2"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -103,9 +119,10 @@
         android:id="@+id/tvCS"
         android:textSize="20sp"
         android:text="Coucher du soleil"
-        app:layout_constraintTop_toBottomOf="@id/tvHum"
+        app:layout_constraintTop_toBottomOf="@id/v2"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
 
 
     <TextView
@@ -115,9 +132,20 @@
         android:id="@+id/valCS"
         android:textSize="20sp"
         android:text="19h20"
-        app:layout_constraintTop_toBottomOf="@id/valHum"
+        app:layout_constraintTop_toBottomOf="@id/v2"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
+
+    <View
+        android:background="#FF0000"
+        android:layout_height="2dp"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/valCS"
+        android:layout_marginTop="@dimen/margin"
+        android:id="@+id/v3"/>
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -125,9 +153,10 @@
         android:id="@+id/tvLS"
         android:textSize="20sp"
         android:text="Lever du soleil"
-        app:layout_constraintTop_toBottomOf="@id/tvCS"
+        app:layout_constraintTop_toBottomOf="@id/v3"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -135,9 +164,19 @@
         android:id="@+id/valLS"
         android:textSize="20sp"
         android:text="6h50"
-        app:layout_constraintTop_toBottomOf="@id/valCS"
+        app:layout_constraintTop_toBottomOf="@id/v3"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
+    <View
+        android:background="#FF0000"
+        android:layout_height="2dp"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/valLS"
+        android:layout_marginTop="@dimen/margin"
+        android:id="@+id/v4"/>
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -145,9 +184,10 @@
         android:id="@+id/tvLat"
         android:textSize="20sp"
         android:text="Latitude"
-        app:layout_constraintTop_toBottomOf="@id/tvLS"
+        app:layout_constraintTop_toBottomOf="@id/v4"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -155,9 +195,19 @@
         android:id="@+id/valLat"
         android:textSize="20sp"
         android:text="16.02"
-        app:layout_constraintTop_toBottomOf="@id/valLS"
+        app:layout_constraintTop_toBottomOf="@id/v4"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
+
+    <View
+        android:background="#FF0000"
+        android:layout_height="2dp"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/valLat"
+        android:layout_marginTop="@dimen/margin"
+        android:id="@+id/v5"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -165,9 +215,10 @@
         android:id="@+id/tvLon"
         android:textSize="20sp"
         android:text="Longitude"
-        app:layout_constraintTop_toBottomOf="@id/tvLat"
+        app:layout_constraintTop_toBottomOf="@id/v5"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -175,9 +226,19 @@
         android:id="@+id/valLon"
         android:textSize="20sp"
         android:text="-16.49"
-        app:layout_constraintTop_toBottomOf="@id/valLat"
+        app:layout_constraintTop_toBottomOf="@id/v5"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
+    <View
+        android:background="#FF0000"
+        android:layout_height="2dp"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/valLon"
+        android:layout_marginTop="@dimen/margin"
+        android:id="@+id/v6"/>
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -185,9 +246,10 @@
         android:id="@+id/tvVent"
         android:textSize="20sp"
         android:text="Vitesse du vent"
-        app:layout_constraintTop_toBottomOf="@id/tvLon"
+        app:layout_constraintTop_toBottomOf="@id/v6"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -195,9 +257,11 @@
         android:id="@+id/valVent"
         android:textSize="20sp"
         android:text="5.1m/s"
-        app:layout_constraintTop_toBottomOf="@id/valLon"
+        app:layout_constraintTop_toBottomOf="@id/v6"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:textColor="@color/colorText"/>
+        android:textColor="@color/colorText"
+        android:layout_marginTop="@dimen/margin"/>
+
 
     <Button
         android:layout_width="match_parent"
