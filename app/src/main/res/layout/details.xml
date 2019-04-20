@@ -21,8 +21,9 @@
             app:layout_constraintTop_toTopOf="@id/cl"
             app:layout_constraintRight_toRightOf="@id/cl"
             app:layout_constraintLeft_toLeftOf="@id/cl"
-            android:textColor="#ffffff"
-            android:layout_marginTop="@dimen/margin"/>
+            android:textColor="@color/colorText"
+            android:layout_marginTop="@dimen/margin"
+            android:textSize="@dimen/size"/>
 
 
         <TextView
