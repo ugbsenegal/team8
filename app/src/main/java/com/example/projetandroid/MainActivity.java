@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -39,16 +42,18 @@ import java.util.Date;
 import java.util.zip.DataFormatException;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int MY_PERMISSION_LOCATION = 0;
     private FusedLocationProviderClient fusedLocationClient;
     private TextView tmpmin;
     private TextView tmpmax;
     private TextView temperature;
 
-    private  TextView[] tvjours;
-    private  TextView[] tvmin;
-    private  TextView[] tvmax;
+    private TextView[] tvjours;
+    private TextView[] tvmin;
+    private TextView[] tvmax;
     private Button bdetails;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         tmpmax = (TextView) findViewById(R.id.tmpmax);
         temperature = (TextView) findViewById(R.id.temperature);
 
-        bdetails = (Button)findViewById(R.id.details);
+        bdetails = (Button) findViewById(R.id.details);
 
 
         bdetails.setOnClickListener(new View.OnClickListener() {
@@ -90,32 +95,74 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(MainActivity.this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null){
-                            ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
-                                    "Loading. Please wait...", true);
-                            new GetLocation().execute(location);
-                            new MeteoDuJour().execute(location);
-                            new MeteoDeLaSemaine().execute(location);
-                            dialog.dismiss();
+
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Toast.makeText(MainActivity.this, "Texte", Toast.LENGTH_SHORT).show();
+            }
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_LOCATION);
+        } else {
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(MainActivity.this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                                        "Loading. Please wait...", true);
+                                new GetLocation().execute(location);
+                                new MeteoDuJour().execute(location);
+                                new MeteoDeLaSemaine().execute(location);
+                                dialog.dismiss();
+                            }
                         }
-                    }
-                });
+                    });
+
+        }
+
+    }
+
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+
+        if (requestCode == MY_PERMISSION_LOCATION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+                fusedLocationClient.getLastLocation()
+                        .addOnSuccessListener(MainActivity.this, new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                // Got last known location. In some rare situations this can be null.
+                                if (location != null) {
+                                    ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
+                                            "Loading. Please wait...", true);
+                                    new GetLocation().execute(location);
+                                    new MeteoDuJour().execute(location);
+                                    new MeteoDeLaSemaine().execute(location);
+                                    dialog.dismiss();
+                                }
+                            }
+                        });
+            } else {
+                Toast.makeText(this, "Texte", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        else{
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
     }
 
     private class GetLocation extends AsyncTask<Location, Void, JSONObject> {
