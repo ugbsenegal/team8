@@ -120,7 +120,7 @@
         android:id="@+id/tvCS"
         android:textSize="20sp"
         android:text="Coucher du soleil"
-        app:layout_constraintTop_toBottomOf="@id/v2"
+        app:layout_constraintTop_toBottomOf="@id/v3"
         android:layout_marginBottom="@dimen/margin_bottom"
         android:textColor="@color/colorText"
         android:layout_marginTop="@dimen/margin"/>
@@ -133,7 +133,7 @@
         android:id="@+id/valCS"
         android:textSize="20sp"
         android:text="--"
-        app:layout_constraintTop_toBottomOf="@id/v2"
+        app:layout_constraintTop_toBottomOf="@id/v3"
         android:layout_marginBottom="@dimen/margin_bottom"
         android:textColor="@color/colorText"
         android:layout_marginTop="@dimen/margin"/>
@@ -142,7 +142,7 @@
         android:background="#FF0000"
         android:layout_height="2dp"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/valCS"
+        app:layout_constraintTop_toBottomOf="@id/valLS"
         android:layout_marginTop="@dimen/margin"
         android:id="@+id/v3"/>
 
@@ -154,7 +154,7 @@
         android:id="@+id/tvLS"
         android:textSize="20sp"
         android:text="Lever du soleil"
-        app:layout_constraintTop_toBottomOf="@id/v3"
+        app:layout_constraintTop_toBottomOf="@id/v2"
         android:layout_marginBottom="@dimen/margin_bottom"
         android:textColor="@color/colorText"
         android:layout_marginTop="@dimen/margin"/>
@@ -165,7 +165,7 @@
         android:id="@+id/valLS"
         android:textSize="20sp"
         android:text="--"
-        app:layout_constraintTop_toBottomOf="@id/v3"
+        app:layout_constraintTop_toBottomOf="@id/v2"
         android:layout_marginBottom="@dimen/margin_bottom"
         android:textColor="@color/colorText"
         android:layout_marginTop="@dimen/margin"/>
@@ -173,7 +173,7 @@
         android:background="#FF0000"
         android:layout_height="2dp"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/valLS"
+        app:layout_constraintTop_toBottomOf="@id/valCS"
         android:layout_marginTop="@dimen/margin"
         android:id="@+id/v4"/>
 
