@@ -11,7 +11,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintHeight_percent="0.4"
         android:id="@+id/cl"
         android:background="@drawable/rounded_border">
 
@@ -31,7 +31,7 @@
             android:layout_height="0dp"
             app:layout_constraintHeight_percent="0.5"
             android:text="--\u2103"
-            android:textSize="100sp"
+            android:textSize="60sp"
             android:id="@+id/temperature"
             app:layout_constraintTop_toBottomOf="@id/date"
             app:layout_constraintRight_toRightOf="@id/cl"
