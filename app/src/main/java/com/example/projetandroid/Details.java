@@ -3,6 +3,7 @@ package com.example.projetandroid;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -13,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -49,12 +52,37 @@ public class Details extends AppCompatActivity {
     private TextView tvCS;
     private  TextView tvvent;
     private TextView tvhum;
+    private Button bdetails;
     private FusedLocationProviderClient fusedLocationClient;
+    private TextView date;
+
+    public static String getCurrentDate(){
+        String[] mois = {"Janvier", "Fevrier","Mars","Avril","Main","Juin","Juillet","Aout","Septembre",
+                "Octobre","Novembre","Decembre"};
+        String[] jour = {"Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"};
+
+        Calendar c = Calendar.getInstance();
+        int i = c.get(Calendar.MONTH);
+        int j = c.get(Calendar.DAY_OF_WEEK);
+        int k = c.get(Calendar.YEAR);
+        int n = c.get(Calendar.DAY_OF_MONTH);
+
+        String s1 = Integer.toString(j);
+        String s2 = Integer.toString(k);
+
+        String chaine = jour[j-1]+","+n+" "+mois[i]+" "+s2;
+
+        return chaine;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details);
+
+        date = (TextView)findViewById(R.id.date);
+        date.setText(getCurrentDate());
+
         tmpmin = (TextView) findViewById(R.id.tmpmin);
         tmpmax = (TextView) findViewById(R.id.tmpmax);
         temperature = (TextView) findViewById(R.id.temperature);
@@ -64,6 +92,7 @@ public class Details extends AppCompatActivity {
         tvCS = (TextView) findViewById(R.id.valCS);
         tvvent = (TextView) findViewById(R.id.valVent);
         tvhum = (TextView) findViewById(R.id.valHum);
+        bdetails = (Button) findViewById(R.id.details);
 
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -88,6 +117,13 @@ public class Details extends AppCompatActivity {
                         }
                     }
                 });
+        bdetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Details.this, HeuresPrieres.class);
+                startActivity(i);
+            }
+        });
     }
 
     private class GetLocation extends AsyncTask<Location, Void, JSONObject> {
