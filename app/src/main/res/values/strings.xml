@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UgbMeteo</string>
+    <string name="app_name">Meteo et Horaires de priere</string>
     <string name="temperature">Temperature  :  </string>
     <string name="levee">Heure lever soleil  :  </string>
     <string name="coucher">Coucher du soleil :</string>

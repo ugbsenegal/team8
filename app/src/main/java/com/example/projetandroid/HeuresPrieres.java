@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,10 +27,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 public class HeuresPrieres extends AppCompatActivity {
 
@@ -43,10 +46,10 @@ public class HeuresPrieres extends AppCompatActivity {
     private String pays;
     private TextView tvdate;
 
-    public static String getCurrentDate(){
-        String[] mois = {"Janvier", "Fevrier","Mars","Avril","Main","Juin","Juillet","Aout","Septembre",
-                "Octobre","Novembre","Decembre"};
-        String[] jour = {"Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"};
+    public static String getCurrentDate() {
+        String[] mois = {"Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre",
+                "Octobre", "Novembre", "Decembre"};
+        String[] jour = {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"};
 
         Calendar c = Calendar.getInstance();
         int i = c.get(Calendar.MONTH);
@@ -57,7 +60,7 @@ public class HeuresPrieres extends AppCompatActivity {
         String s1 = Integer.toString(j);
         String s2 = Integer.toString(k);
 
-        String chaine = jour[j-1]+","+n+" "+mois[i]+" "+s2;
+        String chaine = jour[j - 1] + ", " + n + " " + mois[i] + " " + s2;
 
         return chaine;
     }
@@ -93,16 +96,27 @@ public class HeuresPrieres extends AppCompatActivity {
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
-                            new GetLocation().execute(location);
+                            //new GetLocation().execute(location);
+                            GetLocation gl = new GetLocation();
+                            gl.execute(location);
+                            JSONObject ret = null;
+                            try {
+                                ret = gl.get();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if (ret != null) {
+//                                new Prieres().execute();
 
+                            }
                         }
+
                     }
                 });
     }
 
-    void runPrieres(){
-        new Prieres().execute();
-    }
 
     private class GetLocation extends AsyncTask<Location, Void, JSONObject> {
 
@@ -116,30 +130,23 @@ public class HeuresPrieres extends AppCompatActivity {
                     Double.toString(locations[0].getLongitude()) + "&key=" + api_key;
             URLConnection urlConn = null;
             BufferedReader bufferedReader = null;
-            try
-            {
+            try {
                 URL url = new URL(base_url);
                 urlConn = url.openConnection();
                 bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 
                 StringBuffer stringBuffer = new StringBuffer();
                 String line;
-                while ((line = bufferedReader.readLine()) != null)
-                {
+                while ((line = bufferedReader.readLine()) != null) {
                     stringBuffer.append(line);
                 }
 
                 return new JSONObject(stringBuffer.toString());
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
                 Log.e("App", "yourDataTask", ex);
                 return null;
-            }
-            finally
-            {
-                if(bufferedReader != null)
-                {
+            } finally {
+                if (bufferedReader != null) {
                     try {
                         bufferedReader.close();
                     } catch (IOException e) {
@@ -157,30 +164,24 @@ public class HeuresPrieres extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(JSONObject obj) {
-            JSONObject location;
+
             String location_string = "Meteo App";
-            //String pays = "";
-            //String ville = "";
             try {
-                //Get JSON Array called "results" and then get the 0th complete object as JSON
-                //location = obj.getJSONArray("results").getJSONObject(0);
-                // Get the value of the attribute whose name is "formatted_string"
-                //location_string = location.getString("formatted_address");
                 JSONArray arr = obj.getJSONArray("results").getJSONObject(0).getJSONArray("address_components");
-                for (int i = 0; i < arr.length(); i++){
+                for (int i = 0; i < arr.length(); i++) {
                     JSONArray tmp = arr.getJSONObject(i).getJSONArray("types");
-                    if(tmp.getString(0).equals("country")){
+                    if (tmp.getString(0).equals("country")) {
                         pays = arr.getJSONObject(i).getString("long_name");
                     }
 
-                    if(tmp.getString(0).equals("administrative_area_level_1")){
+                    if (tmp.getString(0).equals("administrative_area_level_1")) {
                         ville = arr.getJSONObject(i).getString("long_name");
                     }
 
                 }
                 location_string = ville + ", " + pays;
                 setTitle(location_string);
-                runPrieres();
+                new Prieres().execute();
                 Log.i("ville", ville);
                 Log.i("pays", pays);
             } catch (JSONException e1) {
@@ -193,9 +194,9 @@ public class HeuresPrieres extends AppCompatActivity {
     }
 
 
-    class Prieres extends AsyncTask<Void, Void, JSONObject> {
+    private class Prieres extends AsyncTask<Void, Void, JSONObject> {
 
-        public int jourDuMois(){
+        public int jourDuMois() {
             Calendar calendar = Calendar.getInstance();
             return calendar.get(Calendar.DATE);
         }
@@ -206,7 +207,7 @@ public class HeuresPrieres extends AppCompatActivity {
             Date d = null;
             try {
                 d = form.parse(date);
-            }catch (ParseException e){
+            } catch (ParseException e) {
                 e.printStackTrace();
 
             }
@@ -216,39 +217,37 @@ public class HeuresPrieres extends AppCompatActivity {
             return c.get(Calendar.DAY_OF_MONTH);
         }
 
+        public String unaccent(String src) {
+            return Normalizer
+                    .normalize(src, Normalizer.Form.NFD)
+                    .replaceAll("[^\\p{ASCII}]", "");
+        }
 
         @Override
         protected JSONObject doInBackground(Void... voids) {
             String base_url = "http://api.aladhan.com/v1/calendarByCity?city=";
-            base_url = base_url + ville + "&country=" + pays + "&method=2&month=" +
-                    Integer.toString(getCurrentMonth()+1)
-                    +  "&year=" + Integer.toString(getCurrentYear());
+            base_url = base_url + unaccent(ville) + "&country=" + unaccent(pays) + "&method=2&month=" +
+                    Integer.toString(getCurrentMonth() + 1)
+                    + "&year=" + Integer.toString(getCurrentYear());
             URLConnection urlConn = null;
             BufferedReader bufferedReader = null;
-            try
-            {
+            try {
                 URL url = new URL(base_url);
                 urlConn = url.openConnection();
                 bufferedReader = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
 
                 StringBuffer stringBuffer = new StringBuffer();
                 String line;
-                while ((line = bufferedReader.readLine()) != null)
-                {
+                while ((line = bufferedReader.readLine()) != null) {
                     stringBuffer.append(line);
                 }
 
                 return new JSONObject(stringBuffer.toString());
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
                 Log.e("App", "yourDataTask", ex);
                 return null;
-            }
-            finally
-            {
-                if(bufferedReader != null)
-                {
+            } finally {
+                if (bufferedReader != null) {
                     try {
                         bufferedReader.close();
                     } catch (IOException e) {
@@ -276,37 +275,43 @@ public class HeuresPrieres extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(JSONObject obj) {
-            try{
+            if (obj == null) {
+                setTitle("Title");
+                return;
+            }
+            super.onPostExecute(obj);
+            try {
                 String date = "";
                 int jour = 0;
                 JSONArray data = obj.getJSONArray("data");
                 int jourActuelle = jourDuMois();
-                for(int i = 0; i < data.length(); i++){
+                for (int i = 0; i < data.length(); i++) {
                     date = data.getJSONObject(i).getJSONObject("date").getJSONObject("gregorian").
                             getString("date");
                     try {
                         jour = getDayFromDate(date);
+
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    if(jour != jourActuelle)
+                    if (jour != jourActuelle)
                         continue;
-                    JSONObject timings = data.getJSONObject(i).getJSONObject("timings");
-                    hFajr.setText(timings.getString("Fajr").split(" ")[0].replace(":", "H"));
-                    hDhur.setText(timings.getString("Dhuhr").split(" ")[0].replace(":", "H"));
-                    hAsr.setText(timings.getString("Asr").split(" ")[0].replace(":", "H"));
-                    hMaghrib.setText(timings.getString("Maghrib").split(" ")[0].replace(":", "H"));
-                    hIsha.setText(timings.getString("Isha").split(" ")[0].replace(":", "H"));
+                    try {
+                        JSONObject timings = data.getJSONObject(i).getJSONObject("timings");
+                        hFajr.setText(timings.getString("Fajr").split(" ")[0].replace(":", "H"));
+                        hDhur.setText(timings.getString("Dhuhr").split(" ")[0].replace(":", "H"));
+                        hAsr.setText(timings.getString("Asr").split(" ")[0].replace(":", "H"));
+                        hMaghrib.setText(timings.getString("Maghrib").split(" ")[0].replace(":", "H"));
+                        hIsha.setText(timings.getString("Isha").split(" ")[0].replace(":", "H"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-            catch (JSONException e1) {
+            } catch (JSONException e1) {
                 e1.printStackTrace();
 
             }
-
         }
     }
-
-
 
 }

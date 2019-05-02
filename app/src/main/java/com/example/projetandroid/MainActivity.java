@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private Button bprieres;
 
     public static String getCurrentDate(){
-        String[] mois = {"Janvier", "Fevrier","Mars","Avril","Main","Juin","Juillet","Aout","Septembre",
+        String[] mois = {"Janvier", "Fevrier","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre",
                 "Octobre","Novembre","Decembre"};
         String[] jour = {"Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"};
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         String s1 = Integer.toString(j);
         String s2 = Integer.toString(k);
 
-        String chaine = jour[j-1]+","+n+" "+mois[i]+" "+s2;
+        String chaine = jour[j-1]+", "+n+" "+mois[i]+" "+s2;
 
         return chaine;
     }
@@ -181,12 +181,9 @@ public class MainActivity extends AppCompatActivity {
                             public void onSuccess(Location location) {
                                 // Got last known location. In some rare situations this can be null.
                                 if (location != null) {
-                                    ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "",
-                                            "Loading. Please wait...", true);
                                     new GetLocation().execute(location);
                                     new MeteoDuJour().execute(location);
                                     new MeteoDeLaSemaine().execute(location);
-                                    dialog.dismiss();
                                 }
                             }
                         });

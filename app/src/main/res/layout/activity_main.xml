@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/back2"
+    android:background="@drawable/meteo2"
     android:padding="20dp">
 
     <android.support.constraint.ConstraintLayout
@@ -94,7 +94,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:textColor="@color/colorText"
         android:id="@+id/jour1"
-        android:layout_marginTop="@dimen/margin"/>
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,7 +105,8 @@
         app:layout_constraintTop_toBottomOf="@id/cl"
         android:textColor="@color/colorText"
         android:id="@+id/minjour1"
-        android:layout_marginTop="@dimen/margin"/>
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -113,7 +115,8 @@
         android:text="--°C"
         android:id="@+id/maxjour1"
         android:textColor="@color/colorText"
-        android:layout_marginTop="@dimen/margin"/>
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
 
     <View
         android:background="#FF0000"
@@ -131,7 +134,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:textColor="@color/colorText"
         android:id="@+id/jour2"
-        android:layout_marginTop="@dimen/margin"/>
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
 
         <TextView
         android:layout_width="wrap_content"
@@ -142,7 +146,8 @@
         app:layout_constraintTop_toBottomOf="@id/v1"
         android:textColor="@color/colorText"
         android:id="@+id/minjour2"
-            android:layout_marginTop="@dimen/margin"/>
+            android:layout_marginTop="@dimen/margin"
+            android:textSize="@dimen/size"/>
 
       <TextView
          android:layout_width="wrap_content"
@@ -152,7 +157,8 @@
          android:text="--°C"
          android:id="@+id/maxjour2"
          android:textColor="@color/colorText"
-          android:layout_marginTop="@dimen/margin"/>
+          android:layout_marginTop="@dimen/margin"
+          android:textSize="@dimen/size"/>
 
     <View
         android:background="#FF0000"
@@ -170,7 +176,8 @@
      app:layout_constraintLeft_toLeftOf="parent"
      android:textColor="@color/colorText"
      android:id="@+id/jour3"
-        android:layout_marginTop="@dimen/margin"/>
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
 
     <TextView
     android:layout_width="wrap_content"
@@ -181,7 +188,8 @@
     app:layout_constraintTop_toBottomOf="@id/v2"
     android:textColor="@color/colorText"
     android:id="@+id/minjour3"
-        android:layout_marginTop="@dimen/margin"/>
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
 
     <TextView
        android:layout_width="wrap_content"
@@ -191,7 +199,8 @@
        android:text="--°C"
        android:id="@+id/maxjour3"
        android:textColor="@color/colorText"
-        android:layout_marginTop="@dimen/margin"/>
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
 
     <View
         android:background="#FF0000"
@@ -209,7 +218,8 @@
      app:layout_constraintLeft_toLeftOf="parent"
      android:textColor="@color/colorText"
      android:id="@+id/jour4"
-        android:layout_marginTop="@dimen/margin"/>
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
 
      <TextView
      android:layout_width="wrap_content"
@@ -220,7 +230,8 @@
      app:layout_constraintTop_toBottomOf="@id/v3"
      android:textColor="@color/colorText"
      android:id="@+id/minjour4"
-         android:layout_marginTop="@dimen/margin" />
+         android:layout_marginTop="@dimen/margin"
+         android:textSize="@dimen/size"/>
 
     <TextView
        android:layout_width="wrap_content"
@@ -230,7 +241,8 @@
        android:text="--°C"
        android:id="@+id/maxjour4"
        android:textColor="@color/colorText"
-        android:layout_marginTop="@dimen/margin"/>
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
 
     <View
         android:background="#FF0000"
@@ -248,7 +260,8 @@
      app:layout_constraintLeft_toLeftOf="parent"
      android:textColor="@color/colorText"
      android:id="@+id/jour5"
-        android:layout_marginTop="@dimen/margin"/>
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
 
     <TextView
     android:layout_width="wrap_content"
@@ -259,7 +272,8 @@
     app:layout_constraintTop_toBottomOf="@id/v4"
     android:textColor="@color/colorText"
     android:id="@+id/minjour5"
-        android:layout_marginTop="@dimen/margin"        />
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
 
 
     <TextView
@@ -270,7 +284,8 @@
        android:text="--°C"
        android:id="@+id/maxjour5"
        android:textColor="@color/colorText"
-        android:layout_marginTop="@dimen/margin"/>
+        android:layout_marginTop="@dimen/margin"
+        android:textSize="@dimen/size"/>
 
     <Button
         android:layout_width="match_parent"
